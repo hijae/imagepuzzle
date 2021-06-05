@@ -34,7 +34,7 @@ public class NewWindowInfo extends JFrame{
         			setVisible(false);
         		}
         });
-        setSize(200,200);
+        setSize(200,100);
         setVisible(true);
     }
 }
