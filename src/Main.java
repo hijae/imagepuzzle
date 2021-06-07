@@ -6,7 +6,6 @@ import javax.swing.*;
 
 public class Main extends JFrame {
     private drawmap panel = new drawmap();
-    private JRadioButton [] radio = new JRadioButton [2];
     int[][] imgpin ={{0,0,1,1},{1,0,2,1},{2,0,3,1},{3,0,4,1},{0,1,1,2},{1,1,2,2},{2,1,3,2},{3,1,4,2},{0,2,1,3},{1,2,2,3},{2,2,3,3},{3,2,4,3},{0,3,1,4},{1,3,2,4},{2,3,3,4},{3,3,4,4}};
     int[] mappin ={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
     int pinloc=15;
@@ -50,7 +49,7 @@ public class Main extends JFrame {
         for (int i = 0; i < itemName.length; i++) {
             screenMenu[i] = new JMenu(itemName[i]);
             for (int j = 0; j < itemTitle[i].length; j++) {
-                if (itemTitle[i][j] == "--") {
+                if (itemTitle[i][j].equals("--")) {
                     screenMenu[i].addSeparator();
                     continue;
                 }
@@ -149,7 +148,9 @@ public class Main extends JFrame {
             }
             if(clear())
             {
-                new NewWindowClear();
+                JOptionPane.showMessageDialog(null,
+                        "축하합니다! 성공입니다!", "성공",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
