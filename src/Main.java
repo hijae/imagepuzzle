@@ -69,7 +69,7 @@ public class Main extends JFrame {
         repaint();
     }
     void randommap() {
-        for(int i=0;i<3;i++)
+        for(int i=0;i<30;i++)
         {
             int r=(int)(Math.random()*4);
             switch (r) {
@@ -79,7 +79,6 @@ public class Main extends JFrame {
                 case 3 -> right();
             }
         }
-
     }
     void up()
     {
