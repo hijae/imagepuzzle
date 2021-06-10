@@ -1,5 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.swing.*;
 
 
@@ -157,6 +160,10 @@ public class Main extends JFrame {
         public void actionPerformed(ActionEvent e) {
             String cmd = e.getActionCommand();
             switch (cmd) {
+                case "시작" -> {
+                    setContentPane(panel);
+                    repaint();
+                }
                 case "정보보기" -> new NewWindowInfo();
                 case "순서섞기" -> randommap();
                 case "순서초기화" -> mapreset();
@@ -182,6 +189,40 @@ public class Main extends JFrame {
                 }
             });
             setSize(400,500);
+            setVisible(true);
+        }
+    }
+    public class NewWindowInfo extends JFrame{
+        JLabel label1 = new JLabel("18114022 송희재");
+        JLabel label2 = new JLabel("2021 자바 텀프로젝트");
+        JButton githubButton= new JButton("Github");
+        JButton okButton = new JButton("OK");
+        public NewWindowInfo() {
+            setTitle("정보보기");
+            setLayout(new FlowLayout());
+            Desktop desktop = java.awt.Desktop.getDesktop();
+
+            Container c = getContentPane();
+            c.add(label1);
+            c.add(label2);
+            c.add(githubButton);
+            githubButton.addMouseListener(new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    try {
+                        URI oURL = new URI("https://github.com/hijae/imagepuzzle");
+                        desktop.browse(oURL);
+                    } catch (URISyntaxException | IOException i) {
+                        i.printStackTrace();
+                    }
+                }
+            });
+            c.add(okButton);
+            okButton.addMouseListener(new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    setVisible(false);
+                }
+            });
+            setSize(200,100);
             setVisible(true);
         }
     }
