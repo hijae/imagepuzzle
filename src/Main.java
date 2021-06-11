@@ -193,8 +193,6 @@ public class Main extends JFrame {
         }
     }
     public class NewWindowInfo extends JFrame{
-        JLabel label1 = new JLabel("18114022 송희재");
-        JLabel label2 = new JLabel("2021 자바 텀프로젝트");
         JButton githubButton= new JButton("Github");
         JButton okButton = new JButton("OK");
         public NewWindowInfo() {
@@ -203,8 +201,8 @@ public class Main extends JFrame {
             Desktop desktop = java.awt.Desktop.getDesktop();
 
             Container c = getContentPane();
-            c.add(label1);
-            c.add(label2);
+            c.add(new JLabel("18114022 송희재"));
+            c.add(new JLabel("2021 자바 텀프로젝트"));
             c.add(githubButton);
             githubButton.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
