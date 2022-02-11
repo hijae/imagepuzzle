@@ -9,32 +9,32 @@ import javax.swing.*;
 
 public class Main extends JFrame {
     private drawmap panel = new drawmap();
-    int[][] imgpin ={{0,0,1,1},{1,0,2,1},{2,0,3,1},{3,0,4,1},{0,1,1,2},{1,1,2,2},{2,1,3,2},{3,1,4,2},{0,2,1,3},{1,2,2,3},{2,2,3,3},{3,2,4,3},{0,3,1,4},{1,3,2,4},{2,3,3,4},{3,3,4,4}};
-    int[] mappin ={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+    int[][] imgpin ={{0,0,1,1},{1,0,2,1},{2,0,3,1},{3,0,4,1},{0,1,1,2},{1,1,2,2},{2,1,3,2},{3,1,4,2},{0,2,1,3},{1,2,2,3},{2,2,3,3},{3,2,4,3},{0,3,1,4},{1,3,2,4},{2,3,3,4},{3,3,4,4}}; //이미지 위치 지정
+    int[] mappin ={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}; //위치 번호 지정
     int pinloc=15;
-    ImageIcon icon = new ImageIcon("image0.jpg");
-    Image img = icon.getImage();
+    ImageIcon icon = new ImageIcon("image0.jpg"); //이미지 지정
+    Image img = icon.getImage(); //이미지 불러오기
     public Main() {
         setContentPane(panel);
         setTitle("15퍼즐");
         createMenu(); // 메뉴 생성, 프레임에 삽입
-        setSize(400, 450);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Container c = getContentPane();
-        c.setLayout(new FlowLayout());
-        c.addKeyListener(new GameKey());
-        c.setFocusable(true);
-        c.requestFocus();
-        setVisible(true);
-        randommap();
+        setSize(400, 450); // 프레임 크기 설정
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 프레임 종료 설정
+        Container c = getContentPane(); // 프레임의 컨테이너 설정
+        c.setLayout(new FlowLayout());  // 프레임의 레이아웃 설정
+        c.addKeyListener(new GameKey()); // 프레임에 키리스너 설정
+        c.setFocusable(true); // 프레임에 포커스 설정
+        c.requestFocus(); // 프레임에 포커스 요청
+        setVisible(true); // 프레임 보이기
+        randommap(); //랜덤으로 순서 섞기 함수 호출
     }
 
 
-    class drawmap extends JPanel {
+    class drawmap extends JPanel { // 맵 출력 패널 생성
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            for(int i=0;i<16;i++) {
-                if(mappin[i]!=15)
+            for(int i=0;i<16;i++) { //맵 이미지 출력
+                if(mappin[i]!=15) //맵의 마지막 위치가 아니면
                 {
                     g.drawImage(img, imgpin[i][0]*100, imgpin[i][1]*100, imgpin[i][2]*100, imgpin[i][3]*100, imgpin[mappin[i]][0]*100, imgpin[mappin[i]][1]*100, imgpin[mappin[i]][2]*100, imgpin[mappin[i]][3]*100, this);
                 }
@@ -42,7 +42,8 @@ public class Main extends JFrame {
         }
     }
 
-    private void createMenu() {
+    private void createMenu() // 메뉴 작성
+    {
         JMenuBar mb = new JMenuBar();
         String[] itemName = {"게임", "기능"};
         String[][] itemTitle = {{"종료", "--", "정보보기"}, {"순서섞기", "순서초기화", "이미지보기"}};
@@ -65,16 +66,16 @@ public class Main extends JFrame {
         setJMenuBar(mb);
     }
 
-    void mapreset() {
+    void mapreset() { // 맵 초기화
         for (int i = 0; i < 16; i++) {
             mappin[i] = i;
         }
         repaint();
     }
-    void randommap() {
+    void randommap() { // 랜덤 맵 생성
         for(int i=0;i<30;i++)
         {
-            int r=(int)(Math.random()*4);
+            int r=(int)(Math.random()*4); // 랜덤 이동 방향 정하기
             switch (r) {
                 case 0 -> up();
                 case 1 -> down();
@@ -83,7 +84,7 @@ public class Main extends JFrame {
             }
         }
     }
-    void up()
+    void up() // 위로 이동 함수
     {
         if(pinloc-4>=0)
         {
@@ -96,7 +97,8 @@ public class Main extends JFrame {
             System.out.println(pinloc);
         }
     }
-    void down() {
+    void down() // 아래로 이동 함수
+    {
         if (pinloc + 4 < 16) {
             int t = mappin[pinloc + 4];
             mappin[pinloc + 4] = mappin[pinloc];
@@ -107,7 +109,7 @@ public class Main extends JFrame {
             System.out.println(pinloc);
         }
     }
-    void left()
+    void left() // 왼쪽으로 이동 함수
     {
         if(pinloc%4!=0)
         {
@@ -118,7 +120,7 @@ public class Main extends JFrame {
             repaint();
         }
     }
-    void right()
+    void right() // 오른쪽으로 이동 함수
     {
         if(pinloc%4!=3)
         {
@@ -129,7 +131,7 @@ public class Main extends JFrame {
             repaint();
         }
     }
-    boolean clear()
+    boolean clear() // 성공인지 확인
     {
         boolean flag=true;
         for(int i=0;i<16;i++) {
@@ -140,7 +142,7 @@ public class Main extends JFrame {
         }
         return (flag);
     }
-    class GameKey extends KeyAdapter {
+    class GameKey extends KeyAdapter { // 키 입력 확인
         public void keyPressed(KeyEvent e) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_UP -> up();
@@ -148,7 +150,7 @@ public class Main extends JFrame {
                 case KeyEvent.VK_LEFT -> left();
                 case KeyEvent.VK_RIGHT -> right();
             }
-            if(clear())
+            if(clear()) // 성공시
             {
                 JOptionPane.showMessageDialog(null,
                         "축하합니다! 성공입니다!", "성공",
@@ -156,7 +158,7 @@ public class Main extends JFrame {
             }
         }
     }
-    class MenuActionListener implements ActionListener {
+    class MenuActionListener implements ActionListener { // 메뉴 액션 리스너
         public void actionPerformed(ActionEvent e) {
             String cmd = e.getActionCommand();
             switch (cmd) {
@@ -172,7 +174,7 @@ public class Main extends JFrame {
             }
         }
     }
-    public class NewWindowImage extends JFrame{
+    public class NewWindowImage extends JFrame{ // 이미지 보기 창
         JLabel label = new JLabel(icon);
         JButton okButton = new JButton("OK");
         public NewWindowImage() {
@@ -192,7 +194,7 @@ public class Main extends JFrame {
             setVisible(true);
         }
     }
-    public class NewWindowInfo extends JFrame{
+    public class NewWindowInfo extends JFrame{ // 정보보기 창
         JButton githubButton= new JButton("Github");
         JButton okButton = new JButton("OK");
         public NewWindowInfo() {
@@ -212,6 +214,7 @@ public class Main extends JFrame {
                     } catch (URISyntaxException | IOException i) {
                         i.printStackTrace();
                     }
+                    new NewWindowInfo();
                 }
             });
             c.add(okButton);
@@ -226,5 +229,5 @@ public class Main extends JFrame {
     }
     public static void main(String[] args) {
         new Main();
-    }
+    } // 메인 함수
 }
