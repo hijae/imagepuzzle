@@ -188,7 +188,7 @@ public class Main extends JFrame {
             c.add(okButton); // 버튼 추가
             okButton.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
-                    dispose();
+                    dispose(); // 창 닫기
                 }
             });
             setSize(400,500);
