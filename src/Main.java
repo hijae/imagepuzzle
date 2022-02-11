@@ -188,7 +188,7 @@ public class Main extends JFrame {
             c.add(okButton); // 버튼 추가
             okButton.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
-                    setVisible(false);
+                    dispose();
                 }
             });
             setSize(400,500);
@@ -221,7 +221,7 @@ public class Main extends JFrame {
             c.add(okButton);
             okButton.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
-                    setVisible(false);
+                    dispose();
                 }
             });
             setSize(200,100);
