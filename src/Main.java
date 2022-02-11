@@ -9,34 +9,38 @@ import javax.swing.*;
 
 public class Main extends JFrame {
     private drawmap panel = new drawmap();
-    int[][] imgpin ={{0,0,1,1},{1,0,2,1},{2,0,3,1},{3,0,4,1},{0,1,1,2},{1,1,2,2},{2,1,3,2},{3,1,4,2},{0,2,1,3},{1,2,2,3},{2,2,3,3},{3,2,4,3},{0,3,1,4},{1,3,2,4},{2,3,3,4},{3,3,4,4}}; //이미지 위치 지정
+    int[][] imgpin ={{0,0,1,1},{1,0,2,1},{2,0,3,1},{3,0,4,1},{0,1,1,2},{1,1,2,2},{2,1,3,2},{3,1,4,2}
+            ,{0,2,1,3},{1,2,2,3},{2,2,3,3},{3,2,4,3},{0,3,1,4},{1,3,2,4},{2,3,3,4},{3,3,4,4}}; //이미지 위치 지정
     int[] mappin ={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}; //위치 번호 지정
     int pinloc=15;
     ImageIcon icon = new ImageIcon("image0.jpg"); //이미지 지정
     Image img = icon.getImage(); //이미지 불러오기
     public Main() {
         setContentPane(panel);
-        setTitle("15퍼즐");
+        setTitle("15퍼즐"); // 창 이름 지정
         createMenu(); // 메뉴 생성, 프레임에 삽입
         setSize(400, 450); // 프레임 크기 설정
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 프레임 종료 설정
         Container c = getContentPane(); // 프레임의 컨테이너 설정
         c.setLayout(new FlowLayout());  // 프레임의 레이아웃 설정
         c.addKeyListener(new GameKey()); // 프레임에 키리스너 설정
-        c.setFocusable(true); // 프레임에 포커스 설정
-        c.requestFocus(); // 프레임에 포커스 요청
-        setVisible(true); // 프레임 보이기
-        randommap(); //랜덤으로 순서 섞기 함수 호출
+        c.setFocusable(true);
+        c.requestFocus();
+        setVisible(true);
+        randommap(); // 랜덤 순서 섞기 함수 호출
     }
 
 
     class drawmap extends JPanel { // 맵 출력 패널 생성
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            for(int i=0;i<16;i++) { //맵 이미지 출력
-                if(mappin[i]!=15) //맵의 마지막 위치가 아니면
+            for(int i=0;i<16;i++) { // 맵 이미지 출력
+                if(mappin[i]!=15) // 맵의 마지막 위치가 아니면
                 {
-                    g.drawImage(img, imgpin[i][0]*100, imgpin[i][1]*100, imgpin[i][2]*100, imgpin[i][3]*100, imgpin[mappin[i]][0]*100, imgpin[mappin[i]][1]*100, imgpin[mappin[i]][2]*100, imgpin[mappin[i]][3]*100, this);
+                    g.drawImage(img, imgpin[i][0]*100, imgpin[i][1]*100,
+                            imgpin[i][2]*100, imgpin[i][3]*100,
+                            imgpin[mappin[i]][0]*100,imgpin[mappin[i]][1]*100,
+                            imgpin[mappin[i]][2]*100, imgpin[mappin[i]][3]*100, this);
                 }
             }
         }
@@ -53,7 +57,7 @@ public class Main extends JFrame {
         for (int i = 0; i < itemName.length; i++) {
             screenMenu[i] = new JMenu(itemName[i]);
             for (int j = 0; j < itemTitle[i].length; j++) {
-                if (itemTitle[i][j].equals("--")) {
+                if (itemTitle[i][j].equals("--")) { // --이면 구분선
                     screenMenu[i].addSeparator();
                     continue;
                 }
@@ -70,6 +74,7 @@ public class Main extends JFrame {
         for (int i = 0; i < 16; i++) {
             mappin[i] = i;
         }
+        pinloc=15;
         repaint();
     }
     void randommap() { // 랜덤 맵 생성
@@ -93,8 +98,6 @@ public class Main extends JFrame {
             mappin[pinloc]=t;
             pinloc=pinloc-4;
             repaint();
-            for(int j=0;j<16;j++) System.out.print(mappin[j]+" ");
-            System.out.println(pinloc);
         }
     }
     void down() // 아래로 이동 함수
@@ -105,8 +108,6 @@ public class Main extends JFrame {
             mappin[pinloc] = t;
             pinloc = pinloc + 4;
             repaint();
-            for (int j = 0; j < 16; j++) System.out.print(mappin[j] + " ");
-            System.out.println(pinloc);
         }
     }
     void left() // 왼쪽으로 이동 함수
@@ -184,7 +185,7 @@ public class Main extends JFrame {
             Container c = getContentPane();
             c.add(label);
 
-            c.add(okButton);
+            c.add(okButton); // 버튼 추가
             okButton.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     setVisible(false);
@@ -209,7 +210,7 @@ public class Main extends JFrame {
             githubButton.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     try {
-                        URI oURL = new URI("https://github.com/hijae/imagepuzzle");
+                        URI oURL = new URI("https://github.com/hijae/imagepuzzle"); // 버튼에 github 주소 연결
                         desktop.browse(oURL);
                     } catch (URISyntaxException | IOException i) {
                         i.printStackTrace();
