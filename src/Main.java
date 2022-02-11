@@ -203,8 +203,8 @@ public class Main extends JFrame {
             Desktop desktop = java.awt.Desktop.getDesktop();
 
             Container c = getContentPane();
-            c.add(new JLabel("18114022 송희재"));
-            c.add(new JLabel("2021 자바 텀프로젝트"));
+            c.add(new JLabel("송희재")); // 정보창 이름
+            c.add(new JLabel("2021 자바 텀프로젝트")); // 제목
             c.add(githubButton);
             githubButton.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
@@ -229,5 +229,5 @@ public class Main extends JFrame {
     }
     public static void main(String[] args) {
         new Main();
-    } // 메인 함수
+    } // 메인 함수 호출
 }
